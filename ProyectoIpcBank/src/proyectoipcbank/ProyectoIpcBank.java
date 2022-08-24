@@ -30,6 +30,7 @@ public class ProyectoIpcBank {
         UsuarioDAO udao = new UsuarioDAO();
         CuentaVO cvo = new CuentaVO();
         CuentaDAO cdao = new CuentaDAO();
+        
         //Controladores
         contMenu cMnu = new contMenu(vMnu, vReg, vCta);
         contUsuario cUsu = new contUsuario(vReg, uvo, udao, usuarios);

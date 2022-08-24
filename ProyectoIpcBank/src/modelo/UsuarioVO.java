@@ -7,6 +7,7 @@ public class UsuarioVO {
     private String apellido;
     private final int idUsuario;
     private static int contadorUsuario;
+    private int contador = 0;
 
     public UsuarioVO() {
         this.idUsuario = ++UsuarioVO.contadorUsuario; //Incrementa el contador cada que se crea un objeto
@@ -52,6 +53,15 @@ public class UsuarioVO {
     public static void setContadorUsuario(int contadorUsuario) {
         UsuarioVO.contadorUsuario = contadorUsuario;
     }
+
+    public int getContador() {
+        return contador;
+    }
+
+    public void setContador(int contador) {
+        this.contador = contador;
+    }
+    
     
     
     

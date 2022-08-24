@@ -80,8 +80,15 @@ public class contCuentas implements ActionListener, WindowListener, MouseListene
         cvo.setSaldoC(Double.parseDouble(vCta.txtSaldo.getText()));
         
         cdao.insertar(cvo, cuentas);
-        cdao.imprimir(cuentas);
-        
+        cdao.imprimir(cuentas);        
+    }
+    
+    public void vaciarCampos(){
+        vCta.txtCui.setText("");
+        vCta.txtApellidoU.setText("");
+        vCta.txtNoCuenta.setText("");
+        vCta.txtNombreU.setText("");
+        vCta.txtSaldo.setText("");
     }
     
     
@@ -91,10 +98,14 @@ public class contCuentas implements ActionListener, WindowListener, MouseListene
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == vCta.btnCrear) {
-            if(!vCta.txtCui.equals("")){
+            if(!vCta.txtCui.getText().equals("")){
                 this.setDatos();
+                vCta.jopMensaje.showMessageDialog(vCta, "Cuenta No. "+cvo.getIdCuenta()+", Nombre: "+cvo.getNombreC()+", creada con éxito ");
                 cvo.setIdCuenta(cvo.getIdCuenta()+1);
+                this.vaciarCampos();
+                
             }else{
+                vCta.jopMensaje.showMessageDialog(vCta, "La cuenta debe asociarse a un CUI existente.");
                 System.out.println("La cuenta debe asociarse a un usuario");
             }
             
@@ -108,6 +119,7 @@ public class contCuentas implements ActionListener, WindowListener, MouseListene
 
     @Override
     public void windowClosing(WindowEvent e) {
+        this.vaciarCampos();
     }
 
     @Override
