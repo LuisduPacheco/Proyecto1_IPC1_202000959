@@ -54,7 +54,6 @@ public class contCuentas implements ActionListener, WindowListener, MouseListene
             }
         }
          vCta.tblUsuarios.setModel(m);
-
     }
     
     //Método para llenar los cuadros de texto

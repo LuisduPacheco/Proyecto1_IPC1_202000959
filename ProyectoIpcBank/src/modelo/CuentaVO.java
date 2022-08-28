@@ -5,7 +5,7 @@ public class CuentaVO {
     private String cuiC;
     private double saldoC;
     private int idCuenta=1000;
-    
+    //Manejar los arreglos de retiros y depositos
 
     public CuentaVO() {
   
