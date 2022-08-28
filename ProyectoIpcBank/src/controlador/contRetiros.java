@@ -7,37 +7,24 @@ import java.awt.event.MouseListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import javax.swing.table.DefaultTableModel;
+import modelo.CuentaDAO;
 import modelo.CuentaVO;
-import modelo.DepositosDAO;
-import modelo.DepositosVO;
-import modelo.Extras;
-import modelo.RetirosDAO;
-import modelo.RetirosVO;
 import vista.FrmRetirosD;
 
 public class contRetiros implements ActionListener, WindowListener, MouseListener {
 
     FrmRetirosD vRet = new FrmRetirosD();
+    CuentaDAO cdao = new CuentaDAO();
     CuentaVO cuentas[] = new CuentaVO[10];
     CuentaVO cvo = new CuentaVO();
-    RetirosVO retiros[] = new RetirosVO[10];
-    RetirosVO rvo = new RetirosVO();
-    RetirosDAO rdao = new RetirosDAO();
-    DepositosVO depositos[] = new DepositosVO[10];
-    DepositosVO dvo = new DepositosVO();
-    DepositosDAO ddao = new DepositosDAO();
+    
 
-    public contRetiros(FrmRetirosD vRet, CuentaVO cuentas[], CuentaVO cvo, RetirosVO retiros[], RetirosVO rvo, RetirosDAO rdao,
-            DepositosVO depositos[], DepositosVO dvo, DepositosDAO ddao) {
+    public contRetiros(FrmRetirosD vRet, CuentaDAO cdao, CuentaVO cuentas[], CuentaVO cvo) {
         this.cuentas = cuentas;
         this.cvo = cvo;
+        this.cdao = cdao;
         this.vRet = vRet;
-        this.retiros = retiros;
-        this.rvo = rvo;
-        this.rdao = rdao;
-        this.depositos = depositos;
-        this.dvo = dvo;
-        this.ddao = ddao;
+       
 
         vRet.addWindowListener(this);
         vRet.tblCuentas.addMouseListener(this);
@@ -48,6 +35,7 @@ public class contRetiros implements ActionListener, WindowListener, MouseListene
 
     //Método que muestra el contenido de la tabla
     private void mostrar() {
+        int posicion = -1;
         DefaultTableModel m = new DefaultTableModel() {
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -62,59 +50,91 @@ public class contRetiros implements ActionListener, WindowListener, MouseListene
 
         for (int i = 0; i < cuentas.length; i++) {
             if (cuentas[i] != null) {
-               
-                m.addRow(new Object[]{cuentas[i].getIdCuenta(), cuentas[i].getCuiC(), cuentas[i].getNombreC(),(cuentas[i].getSaldoC())});
+
+                m.addRow(new Object[]{cuentas[i].getIdCuenta(), cuentas[i].getCuiC(), cuentas[i].getNombreC(), (cuentas[i].getSaldoC())});
             }
+
         }
         vRet.tblCuentas.setModel(m);
+
     }
 
     //Método para llenar los cuadros de texto
-    private void setDatosRetiroD() {
+    private int setDatosRetiroD() {
         int numRow;
+        int posicion = -1;
         numRow = vRet.tblCuentas.getSelectedRow();
         vRet.txtCuenta.setText(String.valueOf(vRet.tblCuentas.getValueAt(numRow, 0)));
         vRet.txtCui.setText(String.valueOf(vRet.tblCuentas.getValueAt(numRow, 1)));
         vRet.txtNombre.setText(String.valueOf(vRet.tblCuentas.getValueAt(numRow, 2)));
         vRet.txtSaldoActual.setText(String.valueOf(vRet.tblCuentas.getValueAt(numRow, 3)));
+        posicion = numRow;
+        return posicion;
     }
 
-    //Método para setear los datos de Retiro 
-    private void setDatosDeposito() {
-
-        dvo.setCuenta(Integer.parseInt(vRet.txtCuenta.getText()));
-        dvo.setCui(vRet.txtCui.getText());
-        dvo.setNombre(vRet.txtNombre.getText());
-        dvo.setSaldoI(Double.parseDouble(vRet.txtSaldoActual.getText()));
-        dvo.setSaldoF(Double.parseDouble(vRet.txtSaldoActual.getText()) + Double.parseDouble(vRet.txtMonto.getText()));
-        
-        dvo.setFecha(Extras.fechaHoy());
-        if (dvo.getSaldoF() > 0) {
-            ddao.insertar(dvo, depositos);
-            ddao.imprimir(depositos);
-            //dvo.setTemporal(Double.parseDouble(vRet.txtMonto.getText()));
-        } else {
-            System.out.println("Error");
-            ddao.imprimir(depositos);
-        }
+    private void depositosCuenta() {
+        cvo.setCuiC(vRet.txtCui.getText());
+        cvo.setIdCuenta(Integer.parseInt(vRet.txtCuenta.getText()));
+        cvo.setNombreC(vRet.txtNombre.getText());
+        cvo.setSaldoC((Double.parseDouble(vRet.txtSaldoActual.getText()) + Double.parseDouble(vRet.txtMonto.getText())));
+        cdao.actualizar(cvo, cuentas, this.setDatosRetiroD());
+        cdao.imprimir(cuentas);
     }
-    
-    private void vaciarCampos(){
+
+    private void retirosCuenta() {
+        cvo.setCuiC(vRet.txtCui.getText());
+        cvo.setIdCuenta(Integer.parseInt(vRet.txtCuenta.getText()));
+        cvo.setNombreC(vRet.txtNombre.getText());
+        cvo.setSaldoC((Double.parseDouble(vRet.txtSaldoActual.getText()) - Double.parseDouble(vRet.txtMonto.getText())));
+        cdao.actualizar(cvo, cuentas, this.setDatosRetiroD());
+        cdao.imprimir(cuentas);
+    }
+
+    private void vaciarCampos() {
         vRet.txtCuenta.setText("");
         vRet.txtCui.setText("");
         vRet.txtMonto.setText("");
         vRet.txtNombre.setText("");
         vRet.txtSaldoActual.setText("");
     }
-    
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(e.getSource() == vRet.btnDeposito){
-        this.setDatosDeposito();
-        this.vaciarCampos();
-        this.mostrar();
-        
+        if (e.getSource() == vRet.btnDeposito) {
+            if (!vRet.txtCui.getText().equals("") && !vRet.txtMonto.getText().equals("")) {
+                if (Double.parseDouble(vRet.txtMonto.getText()) > 0) {
+                    this.depositosCuenta();
+                    this.vaciarCampos();
+                    this.mostrar();
+                    vRet.jopMensaje.showMessageDialog(vRet, "Depósito realizado con éxito");
+                } else {
+                    vRet.jopMensaje.showMessageDialog(vRet, "No realizado, Depositos mayores a 0");
+                }
+            } else {
+                vRet.jopMensaje.showMessageDialog(vRet, "Las operaciones requieren un usuario y un monto para realizarlas");
+            }
+        }
+        if (e.getSource() == vRet.btnRetiro) {
+            if (!vRet.txtCui.getText().equals("") && !vRet.txtMonto.getText().equals("")) {
+                if (Double.parseDouble(vRet.txtMonto.getText()) > 0) {
+                    if (Double.parseDouble(vRet.txtMonto.getText()) < Double.parseDouble(vRet.txtSaldoActual.getText())) {
+                        this.retirosCuenta();
+                        this.vaciarCampos();
+                        this.mostrar();
+                        vRet.jopMensaje.showMessageDialog(vRet, "Retiro realizado con éxito");
+                    } else {
+                        vRet.jopMensaje.showMessageDialog(vRet, "No se pueden hacer retiros mayores al saldo actual: "+vRet.txtSaldoActual.getText());
+                    }
+                } else {
+                    vRet.jopMensaje.showMessageDialog(vRet, "No realizado, Retiros mayores a 0");
+                }
+            } else {
+                vRet.jopMensaje.showMessageDialog(vRet, "Las operaciones requieren un usuario y un monto para realizarlas");
+            }
+        }
+        if(e.getSource() == vRet.btnCancelar){
+            this.vaciarCampos();
+            vRet.jopMensaje.showMessageDialog(vRet, "Cancelado, seleccione otra cuenta");
         }
     }
 

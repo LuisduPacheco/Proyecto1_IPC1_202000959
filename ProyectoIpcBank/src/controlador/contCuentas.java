@@ -36,7 +36,8 @@ public class contCuentas implements ActionListener, WindowListener, MouseListene
     }
 
     //MÉTODO QUE MUESTRA EL CONTENIDO DE LA TABLA
-    private void mostrar() {
+    private int mostrar() {
+        int posicion=-1;
         DefaultTableModel m = new DefaultTableModel() {
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -52,14 +53,14 @@ public class contCuentas implements ActionListener, WindowListener, MouseListene
             if(usuarios[i]!= null){
                 m.addRow(new Object[]{usuarios[i].getCui(), usuarios[i].getNombre(), usuarios[i].getApellido()});
             }
+            posicion =i;
         }
          vCta.tblUsuarios.setModel(m);
+    return posicion;
     }
     
     //Método para llenar los cuadros de texto
     private void setDatosCuenta(){
-    
-    //Usando getSelectedRow
     int numRow;
     numRow = vCta.tblUsuarios.getSelectedRow();
     vCta.txtCui.setText(String.valueOf(vCta.tblUsuarios.getValueAt(numRow, 0)));

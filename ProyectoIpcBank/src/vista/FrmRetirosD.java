@@ -28,6 +28,7 @@ public class FrmRetirosD extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jopMensaje = new javax.swing.JOptionPane();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         txtNombre = new javax.swing.JTextField();
@@ -264,6 +265,7 @@ public class FrmRetirosD extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    public javax.swing.JOptionPane jopMensaje;
     private javax.swing.JLabel lblcui;
     public javax.swing.JTable tblCuentas;
     public javax.swing.JTextField txtCuenta;
