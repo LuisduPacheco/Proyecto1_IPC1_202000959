@@ -1,25 +1,31 @@
 package modelo;
 
-public class CuentaVO {
+public class RetirosVO {
+
     private String nombreC;
     private String cuiC;
-    private double saldoC;
-    private int idCuenta=1000;
+    private int idCuenta;
+    private double SaldoI;
+    private double SaldoF;
+    private String motivo;
     private int contador = -1;
     private String fecha;
-    //Manejar los arreglos de retiros y depositos
 
-    public CuentaVO() {
-  
-    }
-
-    public CuentaVO(String nombreC, String cuiC, double saldoC, int idCuenta, String fecha) {
-        this.idCuenta = idCuenta;
+    public RetirosVO(int contador,String nombreC, String cuiC, int idCuenta, double SaldoI, double SaldoF, String motivo, String fecha) {
         this.nombreC = nombreC;
         this.cuiC = cuiC;
-        this.saldoC = saldoC;
+        this.idCuenta = idCuenta;
+        this.SaldoI = SaldoI;
+        this.SaldoF = SaldoF;
+        this.motivo = motivo;
         this.fecha = fecha;
+        this.contador = contador;
     }
+
+    public RetirosVO() {
+    }
+    
+    
 
     public String getNombreC() {
         return nombreC;
@@ -37,20 +43,36 @@ public class CuentaVO {
         this.cuiC = cuiC;
     }
 
-    public double getSaldoC() {
-        return saldoC;
-    }
-
-    public void setSaldoC(double saldoC) {
-        this.saldoC = saldoC;
-    }
-
     public int getIdCuenta() {
         return idCuenta;
     }
 
     public void setIdCuenta(int idCuenta) {
         this.idCuenta = idCuenta;
+    }
+
+    public double getSaldoI() {
+        return SaldoI;
+    }
+
+    public void setSaldoI(double SaldoI) {
+        this.SaldoI = SaldoI;
+    }
+
+    public double getSaldoF() {
+        return SaldoF;
+    }
+
+    public void setSaldoF(double SaldoF) {
+        this.SaldoF = SaldoF;
+    }
+
+    public String getMotivo() {
+        return motivo;
+    }
+
+    public void setMotivo(String motivo) {
+        this.motivo = motivo;
     }
 
     public int getContador() {
@@ -68,15 +90,7 @@ public class CuentaVO {
     public void setFecha(String fecha) {
         this.fecha = fecha;
     }
-    
-        
 
-   
-    
-    
-    
 
-   
 
-    
 }

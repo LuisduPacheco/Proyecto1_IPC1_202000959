@@ -95,6 +95,11 @@ public class FrmCuentas extends javax.swing.JFrame {
 
         btnCrear.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnCrear.setText("Crear Cuenta");
+        btnCrear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCrearActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -206,6 +211,10 @@ public class FrmCuentas extends javax.swing.JFrame {
     private void txtApellidoUActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtApellidoUActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtApellidoUActionPerformed
+
+    private void btnCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCrearActionPerformed
 
     /**
      * @param args the command line arguments

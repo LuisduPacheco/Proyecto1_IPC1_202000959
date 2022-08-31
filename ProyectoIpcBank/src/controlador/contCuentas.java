@@ -10,6 +10,8 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import modelo.CuentaDAO;
 import modelo.CuentaVO;
+import modelo.Extras;
+import modelo.TransaccionVO;
 import modelo.UsuarioVO;
 import vista.FrmCuentas;
 
@@ -18,6 +20,7 @@ public class contCuentas implements ActionListener, WindowListener, MouseListene
     FrmCuentas vCta = new FrmCuentas();
     UsuarioVO usuarios[] = new UsuarioVO[5];
     CuentaVO cuentas [] = new CuentaVO[10];
+    TransaccionVO transacciones [] = new TransaccionVO[20];
     CuentaVO cvo = new CuentaVO(); 
     CuentaDAO cdao = new CuentaDAO();
     
@@ -78,7 +81,7 @@ public class contCuentas implements ActionListener, WindowListener, MouseListene
         cvo.setNombreC(vCta.txtNombreU.getText());
         cvo.setIdCuenta(Integer.parseInt(vCta.txtNoCuenta.getText()));
         cvo.setSaldoC(Double.parseDouble(vCta.txtSaldo.getText()));
-        
+        cvo.setFecha(Extras.fechaHoy());
         cdao.insertar(cvo, cuentas);
         cdao.imprimir(cuentas);        
     }

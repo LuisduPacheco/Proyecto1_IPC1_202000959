@@ -30,6 +30,7 @@ public class FrmMenu extends javax.swing.JFrame {
         btnReportes = new javax.swing.JButton();
         btnCuentas = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        btnTransacciones = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("IPC BANK - Menú");
@@ -38,12 +39,14 @@ public class FrmMenu extends javax.swing.JFrame {
 
         btnDepostos.setText("Depositos y retiros");
 
-        btnReportes.setText("Reportes");
+        btnReportes.setText("Reportes Usuarios");
 
         btnCuentas.setText("Crear Cuentas");
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel1.setText("IPC BANK - MENÚ");
+
+        btnTransacciones.setText("Reportes Transacciones");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -52,20 +55,21 @@ public class FrmMenu extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(123, 123, 123)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel1)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(btnTransacciones, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnDepostos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnRegistro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnCuentas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnReportes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jLabel1))
-                .addContainerGap(134, Short.MAX_VALUE))
+                        .addComponent(btnReportes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap(124, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(26, 26, 26)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnRegistro)
                 .addGap(40, 40, 40)
                 .addComponent(btnCuentas)
@@ -73,7 +77,9 @@ public class FrmMenu extends javax.swing.JFrame {
                 .addComponent(btnDepostos)
                 .addGap(32, 32, 32)
                 .addComponent(btnReportes)
-                .addGap(24, 24, 24))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                .addComponent(btnTransacciones)
+                .addGap(17, 17, 17))
         );
 
         pack();
@@ -119,6 +125,7 @@ public class FrmMenu extends javax.swing.JFrame {
     public javax.swing.JButton btnDepostos;
     public javax.swing.JButton btnRegistro;
     public javax.swing.JButton btnReportes;
+    public javax.swing.JButton btnTransacciones;
     private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 

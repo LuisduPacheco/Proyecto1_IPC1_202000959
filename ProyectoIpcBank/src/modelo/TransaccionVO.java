@@ -1,24 +1,27 @@
+
 package modelo;
 
-public class CuentaVO {
+
+public class TransaccionVO {
     private String nombreC;
     private String cuiC;
-    private double saldoC;
-    private int idCuenta=1000;
+    private double Monto;
+    private int idCuenta;
+    private String transaccion;
     private int contador = -1;
     private String fecha;
-    //Manejar los arreglos de retiros y depositos
 
-    public CuentaVO() {
-  
+    public TransaccionVO() {
     }
-
-    public CuentaVO(String nombreC, String cuiC, double saldoC, int idCuenta, String fecha) {
-        this.idCuenta = idCuenta;
+    //Modificación contador
+    public TransaccionVO(int contador,String nombreC, String cuiC, double Monto, int idCuenta, String transaccion, String fecha) {
         this.nombreC = nombreC;
         this.cuiC = cuiC;
-        this.saldoC = saldoC;
+        this.Monto = Monto;
+        this.idCuenta = idCuenta;
+        this.transaccion = transaccion;
         this.fecha = fecha;
+        this.contador = contador;
     }
 
     public String getNombreC() {
@@ -37,12 +40,12 @@ public class CuentaVO {
         this.cuiC = cuiC;
     }
 
-    public double getSaldoC() {
-        return saldoC;
+    public double getMonto() {
+        return Monto;
     }
 
-    public void setSaldoC(double saldoC) {
-        this.saldoC = saldoC;
+    public void setMonto(double Monto) {
+        this.Monto = Monto;
     }
 
     public int getIdCuenta() {
@@ -51,6 +54,14 @@ public class CuentaVO {
 
     public void setIdCuenta(int idCuenta) {
         this.idCuenta = idCuenta;
+    }
+
+    public String getTransaccion() {
+        return transaccion;
+    }
+
+    public void setTransaccion(String transaccion) {
+        this.transaccion = transaccion;
     }
 
     public int getContador() {
@@ -69,14 +80,8 @@ public class CuentaVO {
         this.fecha = fecha;
     }
     
-        
-
-   
     
     
     
-
-   
-
     
 }

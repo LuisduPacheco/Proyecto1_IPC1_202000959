@@ -9,6 +9,10 @@ import java.awt.event.WindowListener;
 import javax.swing.table.DefaultTableModel;
 import modelo.CuentaDAO;
 import modelo.CuentaVO;
+import modelo.DepositosVO;
+import modelo.Extras;
+import modelo.RetirosVO;
+import modelo.TransaccionVO;
 import vista.FrmRetirosD;
 
 public class contRetiros implements ActionListener, WindowListener, MouseListener {
@@ -17,14 +21,25 @@ public class contRetiros implements ActionListener, WindowListener, MouseListene
     CuentaDAO cdao = new CuentaDAO();
     CuentaVO cuentas[] = new CuentaVO[10];
     CuentaVO cvo = new CuentaVO();
-    
+    TransaccionVO tvo = new TransaccionVO();
+    TransaccionVO transaccion [] = new TransaccionVO[20];
+    RetirosVO rvo = new RetirosVO();
+    RetirosVO [] retiros = new RetirosVO[20];
+    DepositosVO dvo = new DepositosVO();
+    DepositosVO []depositos = new DepositosVO[20];
 
-    public contRetiros(FrmRetirosD vRet, CuentaDAO cdao, CuentaVO cuentas[], CuentaVO cvo) {
+    public contRetiros(FrmRetirosD vRet, CuentaDAO cdao, CuentaVO cuentas[], CuentaVO cvo,TransaccionVO transaccion [],TransaccionVO 
+            tvo,RetirosVO rvo, RetirosVO [] retiros, DepositosVO dvo, DepositosVO []depositos) {
         this.cuentas = cuentas;
         this.cvo = cvo;
         this.cdao = cdao;
         this.vRet = vRet;
-       
+        this.transaccion = transaccion;
+        this.tvo = tvo;
+        this.rvo = rvo;
+        this.retiros = retiros;
+        this.dvo = dvo;
+        this.depositos = depositos;
 
         vRet.addWindowListener(this);
         vRet.tblCuentas.addMouseListener(this);
@@ -73,23 +88,72 @@ public class contRetiros implements ActionListener, WindowListener, MouseListene
     }
 
     private void depositosCuenta() {
+        //Depositos
         cvo.setCuiC(vRet.txtCui.getText());
         cvo.setIdCuenta(Integer.parseInt(vRet.txtCuenta.getText()));
         cvo.setNombreC(vRet.txtNombre.getText());
         cvo.setSaldoC((Double.parseDouble(vRet.txtSaldoActual.getText()) + Double.parseDouble(vRet.txtMonto.getText())));
+        cvo.setFecha(Extras.fechaHoy());
+        
+        //Transacciones
+        tvo.setCuiC(vRet.txtCui.getText());
+        tvo.setIdCuenta(Integer.parseInt(vRet.txtCuenta.getText()));
+        tvo.setNombreC(vRet.txtNombre.getText());
+        tvo.setMonto(Double.parseDouble(vRet.txtMonto.getText()));
+        tvo.setFecha(Extras.fechaHoy());
+        tvo.setTransaccion("Deposito");
+        
+        dvo.setCuiC(vRet.txtCui.getText());
+        dvo.setIdCuenta(Integer.parseInt(vRet.txtCuenta.getText()));
+        dvo.setNombreC(vRet.txtNombre.getText());
+        dvo.setSaldoI(Double.parseDouble(vRet.txtSaldoActual.getText()));
+        dvo.setSaldoF(Double.parseDouble(vRet.txtSaldoActual.getText())+Double.parseDouble(vRet.txtMonto.getText()));
+        dvo.setFecha(Extras.fechaHoy());
+        dvo.setMotivo("Deposito");
+        
         cdao.actualizar(cvo, cuentas, this.setDatosRetiroD());
+        cdao.insertar(tvo, transaccion);
+        cdao.insertarDepositos(dvo, depositos);
+        
         cdao.imprimir(cuentas);
+        cdao.imprimirT(transaccion);
+        cdao.imprimirDepositos(depositos);
     }
 
     private void retirosCuenta() {
+       //Retiros
         cvo.setCuiC(vRet.txtCui.getText());
         cvo.setIdCuenta(Integer.parseInt(vRet.txtCuenta.getText()));
         cvo.setNombreC(vRet.txtNombre.getText());
         cvo.setSaldoC((Double.parseDouble(vRet.txtSaldoActual.getText()) - Double.parseDouble(vRet.txtMonto.getText())));
+        cvo.setFecha(Extras.fechaHoy());
+        
+        //Transacciones
+        tvo.setCuiC(vRet.txtCui.getText());
+        tvo.setIdCuenta(Integer.parseInt(vRet.txtCuenta.getText()));
+        tvo.setNombreC(vRet.txtNombre.getText());
+        tvo.setMonto(Double.parseDouble(vRet.txtMonto.getText()));
+        tvo.setFecha(Extras.fechaHoy());
+        tvo.setTransaccion("Retiro");
+        
+        rvo.setCuiC(vRet.txtCui.getText());
+        rvo.setIdCuenta(Integer.parseInt(vRet.txtCuenta.getText()));
+        rvo.setNombreC(vRet.txtNombre.getText());
+        rvo.setSaldoI(Double.parseDouble(vRet.txtSaldoActual.getText()));
+        rvo.setSaldoF(Double.parseDouble(vRet.txtSaldoActual.getText())-Double.parseDouble(vRet.txtMonto.getText()));
+        rvo.setFecha(Extras.fechaHoy());
+        rvo.setMotivo("Retiro");
+        
         cdao.actualizar(cvo, cuentas, this.setDatosRetiroD());
+        cdao.insertar(tvo, transaccion);
+        cdao.insertarRetiros(rvo, retiros);
         cdao.imprimir(cuentas);
+        cdao.imprimirT(transaccion);
+        cdao.imprimirRetiros(retiros);
+        
     }
-
+    
+    
     private void vaciarCampos() {
         vRet.txtCuenta.setText("");
         vRet.txtCui.setText("");
@@ -123,7 +187,7 @@ public class contRetiros implements ActionListener, WindowListener, MouseListene
                         this.mostrar();
                         vRet.jopMensaje.showMessageDialog(vRet, "Retiro realizado con éxito");
                     } else {
-                        vRet.jopMensaje.showMessageDialog(vRet, "No se pueden hacer retiros mayores al saldo actual: "+vRet.txtSaldoActual.getText());
+                        vRet.jopMensaje.showMessageDialog(vRet, "No se pueden hacer retiros mayores al saldo actual: " + vRet.txtSaldoActual.getText());
                     }
                 } else {
                     vRet.jopMensaje.showMessageDialog(vRet, "No realizado, Retiros mayores a 0");
@@ -132,7 +196,7 @@ public class contRetiros implements ActionListener, WindowListener, MouseListene
                 vRet.jopMensaje.showMessageDialog(vRet, "Las operaciones requieren un usuario y un monto para realizarlas");
             }
         }
-        if(e.getSource() == vRet.btnCancelar){
+        if (e.getSource() == vRet.btnCancelar) {
             this.vaciarCampos();
             vRet.jopMensaje.showMessageDialog(vRet, "Cancelado, seleccione otra cuenta");
         }
@@ -141,6 +205,7 @@ public class contRetiros implements ActionListener, WindowListener, MouseListene
     @Override
     public void windowOpened(WindowEvent e) {
         this.mostrar();
+        System.out.println("Depositos y Retiros");
     }
 
     @Override
