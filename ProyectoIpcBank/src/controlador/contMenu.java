@@ -4,6 +4,7 @@ package controlador;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import vista.FrmCuentas;
+import vista.FrmHistorial;
 import vista.FrmMenu;
 import vista.FrmRegistroU;
 import vista.FrmReportes;
@@ -17,19 +18,22 @@ public class contMenu implements ActionListener {
     FrmCuentas vCta = new FrmCuentas();
     FrmRetirosD vRet = new FrmRetirosD();
     FrmReportes vRep = new FrmReportes();
+    FrmHistorial vHist = new FrmHistorial();
     
 
-    public contMenu(FrmMenu vMnu,FrmRegistroU vReg,FrmCuentas vCta,FrmRetirosD vRet,FrmReportes vRep) {
+    public contMenu(FrmMenu vMnu,FrmRegistroU vReg,FrmCuentas vCta,FrmRetirosD vRet,FrmReportes vRep,FrmHistorial vHist) {
         this.vMnu = vMnu;
         this.vReg = vReg;
         this.vCta = vCta;
         this.vRet = vRet;
         this.vRep = vRep;
+        this.vHist = vHist;
         
         vMnu.btnCuentas.addActionListener(this);
         vMnu.btnDepostos.addActionListener(this);
         vMnu.btnRegistro.addActionListener(this);
         vMnu.btnReportes.addActionListener(this);
+        vMnu.btnTransacciones.addActionListener(this);
         
     }
 
@@ -57,7 +61,11 @@ public class contMenu implements ActionListener {
             vRep.setVisible(true);
             vRep.setResizable(false);
         }
-        
+        if(e.getSource() == vMnu.btnTransacciones){
+            vHist.setLocationRelativeTo(vMnu);
+            vHist.setVisible(true);
+            vHist.setResizable(false);
+        }
         
         
     }

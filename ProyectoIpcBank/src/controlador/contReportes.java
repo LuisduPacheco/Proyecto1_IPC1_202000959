@@ -1,5 +1,6 @@
 package controlador;
 
+import ReportesPDF.ReporteUsuarios;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
@@ -14,14 +15,18 @@ public class contReportes implements ActionListener, WindowListener {
     FrmReportes vRep = new FrmReportes();
     UsuarioVO[] usuarios = new UsuarioVO[5];
     CuentaVO[] cuentas = new CuentaVO[10];
-
-    public contReportes(FrmReportes vRep, UsuarioVO[] usuarios, CuentaVO[] cuentas) {
+    //PDF
+    ReporteUsuarios reporte = new ReporteUsuarios();
+    
+    public contReportes(FrmReportes vRep, UsuarioVO[] usuarios, CuentaVO[] cuentas,ReporteUsuarios reporte) {
         this.vRep = vRep;
         this.usuarios = usuarios;
         this.cuentas = cuentas;
+        this.reporte = reporte;
+        
         vRep.addWindowListener(this);
         vRep.btnBuscar.addActionListener(this);
-
+        vRep.btnReporteU.addActionListener(this);
     }
 
     private int mostrar() {
@@ -85,6 +90,11 @@ public class contReportes implements ActionListener, WindowListener {
             }else{
                 vRep.jopMensaje.showMessageDialog(vRep, "Debe ingresar un CUI para la busqueda");
             }            
+        }
+        if(e.getSource() == vRep.btnReporteU){
+            
+            reporte.generarHtml();
+            System.out.println("Reporte Usuarios");
         }
     }
 

@@ -1,7 +1,9 @@
 
 package proyectoipcbank;
 
+import ReportesPDF.ReporteUsuarios;
 import controlador.contCuentas;
+import controlador.contHistorial;
 import controlador.contMenu;
 import controlador.contReportes;
 
@@ -15,6 +17,7 @@ import modelo.TransaccionVO;
 import modelo.UsuarioDAO;
 import modelo.UsuarioVO;
 import vista.FrmCuentas;
+import vista.FrmHistorial;
 import vista.FrmMenu;
 import vista.FrmRegistroU;
 import vista.FrmReportes;
@@ -36,6 +39,10 @@ public class ProyectoIpcBank {
         FrmCuentas vCta = new FrmCuentas();
         FrmRetirosD vRet = new FrmRetirosD();
         FrmReportes vRep = new FrmReportes();
+        FrmHistorial vHist = new FrmHistorial();
+        
+        //REPORTE
+        ReporteUsuarios reporte = new ReporteUsuarios();
         
         
         //Modelo
@@ -49,11 +56,14 @@ public class ProyectoIpcBank {
         
         
         //Controladores
-        contMenu cMnu = new contMenu(vMnu, vReg, vCta, vRet, vRep);
+        contMenu cMnu = new contMenu(vMnu, vReg, vCta, vRet, vRep, vHist);
         contUsuario cUsu = new contUsuario(vReg, uvo, udao, usuarios);
         contCuentas cCu = new contCuentas(vCta, usuarios, cuentas, cvo, cdao);
         contRetiros cRet = new contRetiros(vRet, cdao, cuentas, cvo, transacciones, tvo, rvo, retiros, dvo, depositos);
-        contReportes cRep = new contReportes(vRep, usuarios, cuentas);
+        contReportes cRep = new contReportes(vRep, usuarios, cuentas, reporte);
+        contHistorial cHist = new contHistorial(vHist, cuentas, transacciones);
+        
+        
         
         
         //Ventanas
