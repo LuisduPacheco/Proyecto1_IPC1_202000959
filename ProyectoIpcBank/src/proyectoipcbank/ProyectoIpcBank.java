@@ -61,10 +61,7 @@ public class ProyectoIpcBank {
         contCuentas cCu = new contCuentas(vCta, usuarios, cuentas, cvo, cdao);
         contRetiros cRet = new contRetiros(vRet, cdao, cuentas, cvo, transacciones, tvo, rvo, retiros, dvo, depositos);
         contReportes cRep = new contReportes(vRep, usuarios, cuentas, reporte);
-        contHistorial cHist = new contHistorial(vHist, cuentas, transacciones);
-        
-        
-        
+        contHistorial cHist = new contHistorial(vHist, cuentas, transacciones, reporte, depositos, retiros);
         
         //Ventanas
         vMnu.setVisible(true);

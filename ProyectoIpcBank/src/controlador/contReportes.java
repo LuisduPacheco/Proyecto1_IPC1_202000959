@@ -92,9 +92,9 @@ public class contReportes implements ActionListener, WindowListener {
             }            
         }
         if(e.getSource() == vRep.btnReporteU){
-            
-            reporte.generarHtml();
+            reporte.generarHtml(cuentas);
             System.out.println("Reporte Usuarios");
+            vRep.jopMensaje.showMessageDialog(vRep, "Reporte de Usuarios creado con éxito");
         }
     }
 

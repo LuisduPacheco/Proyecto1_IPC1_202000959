@@ -222,11 +222,12 @@ public class contRetiros implements ActionListener, WindowListener, MouseListene
 
     @Override
     public void windowDeiconified(WindowEvent e) {
-        this.mostrar();
+        
     }
 
     @Override
     public void windowActivated(WindowEvent e) {
+        this.mostrar();
     }
 
     @Override

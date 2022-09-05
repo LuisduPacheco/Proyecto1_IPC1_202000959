@@ -28,6 +28,7 @@ public class FrmHistorial extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jopMensaje = new javax.swing.JOptionPane();
         txtIdCuenta = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         btnDepositos = new javax.swing.JButton();
@@ -206,6 +207,7 @@ public class FrmHistorial extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
+    public javax.swing.JOptionPane jopMensaje;
     public javax.swing.JTable tblMostrar;
     public javax.swing.JTextField txtApellido;
     public javax.swing.JTextField txtCui;
