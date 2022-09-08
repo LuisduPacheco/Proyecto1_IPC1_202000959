@@ -43,7 +43,6 @@ public class FrmHistorial extends javax.swing.JFrame {
         tblMostrar = new javax.swing.JTable();
         jLabel5 = new javax.swing.JLabel();
         btnMostar = new javax.swing.JButton();
-        btnTransacciones = new javax.swing.JButton();
         btnRetiros = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -75,7 +74,7 @@ public class FrmHistorial extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tblMostrar);
 
-        jLabel5.setText("Reporte General de:");
+        jLabel5.setText("Generar Reporte de: ");
 
         btnMostar.setText("Mostrar Transacciones");
         btnMostar.addActionListener(new java.awt.event.ActionListener() {
@@ -83,8 +82,6 @@ public class FrmHistorial extends javax.swing.JFrame {
                 btnMostarActionPerformed(evt);
             }
         });
-
-        btnTransacciones.setText("Historial Transacciones");
 
         btnRetiros.setText("Historial de Retiros");
 
@@ -119,9 +116,7 @@ public class FrmHistorial extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnDepositos)
                         .addGap(31, 31, 31)
-                        .addComponent(btnRetiros)
-                        .addGap(32, 32, 32)
-                        .addComponent(btnTransacciones)))
+                        .addComponent(btnRetiros)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -146,11 +141,9 @@ public class FrmHistorial extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnTransacciones)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btnDepositos)
-                        .addComponent(btnRetiros)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnDepositos)
+                    .addComponent(btnRetiros))
                 .addGap(21, 21, 21))
         );
 
@@ -200,7 +193,6 @@ public class FrmHistorial extends javax.swing.JFrame {
     public javax.swing.JButton btnDepositos;
     public javax.swing.JButton btnMostar;
     public javax.swing.JButton btnRetiros;
-    public javax.swing.JButton btnTransacciones;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

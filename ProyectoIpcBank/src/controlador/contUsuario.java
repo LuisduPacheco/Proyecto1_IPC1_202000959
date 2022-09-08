@@ -34,14 +34,21 @@ public class contUsuario implements ActionListener, WindowListener {
 
     }
 
-    public void registrarU(UsuarioVO[] usuarioU) {
+    public boolean registrarU(UsuarioVO[] usuarioU) {
         this.setDatos();
-        udao.buscar(vReg.txtCui.getText(), usuarioU);
+        boolean validar = false;
+        //udao.buscar(vReg.txtCui.getText(), usuarioU);
+        if(udao.buscar(vReg.txtCui.getText(), usuarioU) == -1){
         uvo.setContador(uvo.getContador() + 1);
         UsuarioVO usuario = new UsuarioVO(uvo.getCui(), uvo.getNombre(), uvo.getApellido());
-        udao.insertar(usuario, usuarioU);       
+        udao.insertar(usuario, usuarioU);
         udao.imprimir(usuarioU);
-
+        return true;
+        }else{
+            vReg.jopMensaje.showMessageDialog(vReg, "El CUI que desea registrar ya existe");
+        }
+        
+       return validar;
     }
 
     //VALIDAR QUE TODOS LOS CAMPOS ESTÉN LLENOS
@@ -77,11 +84,17 @@ public class contUsuario implements ActionListener, WindowListener {
 
             if (this.validaContador() == true) {
                 if (this.camposLlenos() == true) {
+
                     this.setDatos();
-                    this.registrarU(this.usuarios);
+                    //this.registrarU(this.usuarios);
+                    if(this.registrarU(usuarios)==true){
                     vReg.jopMensaje.showMessageDialog(vReg, "Usuario: " + uvo.getNombre() + " " + uvo.getApellido() + ", registrado con éxito.");
-                    System.out.println("Contador Usuarios"+uvo.getContador());
+                    System.out.println("Contador Usuarios" + uvo.getContador());
                     this.vaciarCampos();
+                    }else{
+                    this.vaciarCampos();
+                    }
+                    //-------------
 
                 } else {
                     vReg.jopMensaje.showMessageDialog(vReg, "Llene todos los campos");
